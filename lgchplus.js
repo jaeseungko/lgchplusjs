@@ -1,31 +1,43 @@
 /**
- * Created by jaeseung.ko on 2016. 2. 11..
+ * Created by jaeseung.ko on 2016. 2. 16..
  */
-function lgchplus() {
 
-    var cbChannelChange = undefined;
+
+var lgchplus = new function() {
+
+    this.cbChannelChange = Object;
 
     this.init = function () {
+
+        //this.addPluginElement('dmost', 'application/dmost', 'visibility:hidden');
+        this.addPluginElement('oipfAppMan', 'application/oipfApplicationManager','display: none');
+        this.addPluginElement('oipfConfig', 'application/oipfConfiguration', 'display: none');
+        this.addPluginElement('oipfVideo', 'video/broadcast','visibility:hidden');
+
         var oipfAppMan = document.getElementById('oipfAppMan').getOwnerApplication(document);
-        oipfAppMan.show();
+        if (oipfAppMan)
+            oipfAppMan.show();
+    };
 
-        //var oipfVideo = document.getElementById('oipfVideo');
-        //this.onChannelChange({channel: oipfVideo.currentChannel});
+    this.addPluginElement = function(id, type, style) {
 
-        //oipfVideo.addEventListener('ChannelChangeSucceeded', this.onChannelChange);
-        //this.registerChannelChangeCb(this._onChannelChange);
-        //lgchplus.startVideo();
+        var objElem = document.createElement('object');
+        objElem.setAttribute('id', id);
+        objElem.setAttribute('type', type);
+        objElem.setAttribute('style', style);
+
+        document.body.appendChild(objElem);
     };
 
     this._onChannelChange = function(obj) {
 
         var channel = obj.channel;
-        console.log('onChannelChange', channel);
+        //console.log('onChannelChange', channel);
 
         var result = {};
         var description = JSON.parse(channel.description);
 
-        console.log(description);
+        //console.log(description);
 
         result.title = channel.name;
         result.id = description.IPChannelCode;
@@ -38,16 +50,16 @@ function lgchplus() {
         result.lastupdate = description.lastUpdated;
         result.lock = typeof description.locked == 'number' ? description.locked : 'notnumber';
 
-        if (this.cbChannelChange != undefined) {
-            this.cbChannelChange(result);
+        if (lgchplus.cbChannelChange != null) {
+            lgchplus.cbChannelChange(result);
         }
     };
 
-    this.addEventListener = function(eventType, callback) {
-        console.log("add Event Listner for EventType : " + eventType);
+    this.addChplusEventListener = function(eventType, callback) {
+        console.log("add Event Listener for EventType : " + eventType);
 
         if (eventType == 'channelChange') {
-            cbChannelChange = callback;
+            lgchplus.cbChannelChange = callback;
             var oipfVideo = document.getElementById('oipfVideo');
             oipfVideo.addEventListener('ChannelChangeSucceeded', this._onChannelChange);
 
@@ -73,9 +85,9 @@ function lgchplus() {
 
         var vid = document.getElementsByTagName('video')[0];
         if (vid.hasChildNodes()) {
-            var sourceElem = document.getElementById('source');
-            if (sourceElem) {
-                vid.removeChild(sourceElem);
+            var childElem = document.getElementById('source');
+            if (childElem) {
+                vid.removeChild(childElem);
             }
         }
 
@@ -104,4 +116,5 @@ function lgchplus() {
     this.getIPChannelList = function(callback) {
         console.log("getIPChannelList called");
     };
+
 };
