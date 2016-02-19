@@ -6,9 +6,9 @@ document.addEventListener('DOMContentLoaded', function() {
     try {
 
         Testlgchplus.TestInit();
-        Testlgchplus.TestSetKeySet();
-        Testlgchplus.TestChangeVideo();
-        Testlgchplus.TestChannelChange();
+        //Testlgchplus.TestSetKeySet();
+        //Testlgchplus.TestChangeVideo();
+        //Testlgchplus.TestChannelChange();
 
     } catch(error) {
 

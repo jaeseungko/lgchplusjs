@@ -7,30 +7,35 @@ var Testlgchplus = new function() {
 
     this.TestInit = function() {
 
-        //lgchplus.init();
-
         lgchplus.init();
 
-        var oipfConfig = document.getElementById('oipfConfig');
-        var oipfAppMan = document.getElementById('oipfAppMan');
-        var oipfVideo = document.getElementById('oipfVideo');
+        var dmostConfig = document.getElementById('dmostConfig');
+        var dmostAppMan = document.getElementById('dmostAppMan');
+        var dmostVideo = document.getElementById('dmostVideo');
+        var dmostPlugin = document.getElementById('dmostPlugin');
 
-        if (oipfConfig) {
-            console.log("Created oipfConfig plugin - PASS");
+        if (dmostConfig) {
+            console.log("Created dmostConfig plugin - PASS");
         } else {
-            console.log("Create oipfConfig plugin - FAIL");
+            console.log("Create dmostConfig plugin - FAIL");
         }
 
-        if (oipfAppMan) {
-            console.log("Created oipfAppMgn plugin - PASS");
+        if (dmostAppMan) {
+            console.log("Created dmostAppMgn plugin - PASS");
         } else {
-            console.log("Create oipfAppMgn plugin - FAIL");
+            console.log("Create dmostAppMgn plugin - FAIL");
         }
 
-        if (oipfVideo) {
-            console.log("Created oipfVideo plugin - PASS");
+        if (dmostVideo) {
+            console.log("Created dmostVideo plugin - PASS");
         } else {
-            console.log("Create oipfVideo plugin - FAIL");
+            console.log("Create dmostVideo plugin - FAIL");
+        }
+
+        if (dmostPlugin) {
+            console.log("Created dmostPlugin plugin - PASS");
+        } else {
+            console.log("Create dmostPlugin plugin - FAIL");
         }
     };
 
@@ -68,7 +73,7 @@ var Testlgchplus = new function() {
             console.log("Channel lastupdated : " + channel.lastupdate);
         });*/
 
-        lgchplus.channel.addChplusEventListener('channelChange', function(channel) {
+        lgchplus.app.addChplusEventListener('channelChange', function(channel) {
             console.log(channel);
             console.log("Channel Title : " + channel.title);
             console.log("Channel id : " + channel.id);

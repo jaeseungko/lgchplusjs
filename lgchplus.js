@@ -6,7 +6,6 @@
 var lgchplus;
 
 lgchplus = (function() {
-
     var addPluginElement = function(id, type, style) {
         var objElem = document.createElement('object');
         objElem.setAttribute('id', id);
@@ -22,13 +21,14 @@ lgchplus = (function() {
 
     return {
         init : function(resultCb) {
-            addPluginElement('dmostAppMgr', 'application/dmostApplicationManager','display: none');
-            addPluginElement('dmostConfig', 'application/dmostConfiguration', 'display: none');
-            addPluginElement('dmostVideo', 'video/dmostbroadcast','visibility:hidden');
+            addPluginElement('dmostAppMgr', 'application/dmostApplicationManager','width:0;height:0');
+            addPluginElement('dmostConfig', 'application/dmostConfiguration', 'width:0;height:0');
+            addPluginElement('dmostVideo', 'video/dmostbroadcast','width:0;height:0');
+            addPluginElement('dmostPlugin', 'application/dmostPlugin','width:0;height:0');
 
-            var oipfAppMan = document.getElementById('oipfAppMan').getOwnerApplication(document);
-            if (oipfAppMan)
-                oipfAppMan.show();
+            var dmostAppMan = document.getElementById('dmostAppMan').getOwnerApplication(document);
+            if (dmostAppMan)
+                dmostAppMan.show();
 
             if (resultCb) {
                 if (getElementId('dmostAppMgr')
@@ -43,6 +43,7 @@ lgchplus = (function() {
 
 
         }
+
     }
 })();
 
@@ -79,8 +80,8 @@ lgchplus.app = (function() {
     return {
         setKeySet : function(mask) {
             console.log("set KeySet  : " + mask);
-            var oipfAppMan = document.getElementById('dmostAppMan').getOwnerApplication(document);
-            oipfAppMan.privateData.keyset.setValue(mask);
+            var dmostAppMan = document.getElementById('dmostAppMan').getOwnerApplication(document);
+            dmostAppMan.privateData.keyset.setValue(mask);
         },
 
         addChplusEventListener : function(eventType, callback) {
@@ -88,8 +89,8 @@ lgchplus.app = (function() {
             if (eventType == 'channelChange') {
 
                 cbChannelChange = callback;
-                var oipfVideo = document.getElementById('dmostVideo');
-                oipfVideo.addEventListener('ChannelChangeSucceeded', onChannelChange);
+                var dmostVideo = document.getElementById('dmostVideo');
+                dmostVideo.addEventListener('ChannelChangeSucceeded', onChannelChange);
 
             } else if ( eventType == 'systemLock') {
                 console.log("registerSystemLockCallback : TBD");
